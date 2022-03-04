@@ -1,0 +1,31 @@
+L = input()
+
+n = 0
+m = 0
+result = list()
+
+while True:
+    if m == len(L):
+        break
+    if L[m] == '<':
+        if n != 0:
+            n -= 1
+            m += 1
+        else:
+            m += 1
+    elif L[m] == '>':
+        if len(result) != n:
+            m += 1
+            n += 1
+        else:
+            m += 1
+    elif L[m] == '-':
+        result.pop(n-1)
+        m += 1
+    else:
+        result.insert(n, L[m])
+        m += 1
+        n += 1
+
+print(result)
+        
