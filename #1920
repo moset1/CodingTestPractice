@@ -1,0 +1,16 @@
+N = int(input())
+first_list = list(map(int, input().split()))
+M = int(input())
+second_list = list(map(int, input().split()))
+
+index = 0
+
+while True:
+    if index == len(second_list):
+        break
+    if second_list[index] in first_list:
+        print(1)
+        index += 1
+    else:
+        print(0)
+        index += 1
