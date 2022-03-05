@@ -1,0 +1,29 @@
+graph = dict()
+n = int(input())
+
+
+def dfs(graph, start_node):
+    visited, need_visit = list(), list()
+    need_visit.append(start_node)
+    count = 1 
+    while need_visit:
+        node = need_visit.pop()
+        if node not in visited:
+            visited.append(node)
+            if node not in graph.keys():
+                break
+            need_visit.append(graph[node])
+            count += 1
+    print(count)
+
+
+for index1 in range(n):
+    graph.clear()
+    F = int(input())
+    for index2 in range(F): 
+        key, value = input().split()
+        if index2 == 0:
+            start = key
+        graph[key] = value
+        dfs(graph, start)
+    
