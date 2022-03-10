@@ -1,0 +1,26 @@
+#트로피 진열
+
+N = int(input())
+size = list()
+left_see = 1
+right_see = 1
+max_index = 0
+
+for _ in range(N):
+    size.append(int(input()))
+
+for index in range(N-1):
+    if size[max_index] < size[index+1]:
+        max_index = index+1
+        left_see += 1
+
+max_index = N-1
+
+for index2 in range(N-1):
+    if size[max_index] < size[N-1-(index2+1)]:
+        max_index = N-1-(index2+1)
+        right_see += 1
+
+print(left_see)
+print(right_see)
+        
