@@ -1,0 +1,73 @@
+class Node:
+    def __init__(self, data, left, right, row=None, col=None):
+        self.data = data
+        self.left = left
+        self.right = right
+        self.row = row
+        self.col = col
+
+#첫 입력은 따로 저장
+tree = {}
+n = int(input())
+c = 1
+first, first_l, first_r = input().split()
+tree[first] = Node(first, first_l, first_r)
+tree[first].row = 1
+
+for _ in range(n - 1):
+    root, left, right = input().split()
+    tree[root] = Node(root, left, right)
+
+# 노드 열 저장
+def define_col(node):
+    global c
+    if node.left != '-1':
+        define_col(tree[node.left])
+    node.col = c
+    c += 1
+    if node.right != '-1':
+        define_col(tree[node.right])
+
+# 노드 행 저장
+def define_level(node):
+    if node.left != '-1':
+        tree[node.left].row = node.row + 1
+        define_level(tree[node.left])
+    if node.right != '-1':
+        tree[node.right].row = node.row + 1
+        define_level(tree[node.right])
+
+
+define_col(tree[first])
+define_level(tree[first])
+
+# 각 행 별로 최소 최대 열 저장
+level_min = dict()
+level_max = dict()
+for i in tree.keys():
+    if tree[i].row not in level_min.keys():
+        level_min[tree[i].row] = tree[i].col
+    if tree[i].row not in level_max.keys():
+        level_max[tree[i].row] = tree[i].col
+    if level_min[tree[i].row] > tree[i].col:
+        level_min[tree[i].row] = tree[i].col
+    if level_max[tree[i].row] < tree[i].col:
+        level_max[tree[i].row] = tree[i].col
+
+# 넓이 계산
+result_list = list()
+for i in level_max.keys():
+    level, max_length = i, level_max[i] - level_min[i] + 1
+    result_list.append([max_length, level])
+a = max(result_list)[0]
+
+# 같은 넓이가 있을경우 낮은 행의 값을 출력
+last_result = list()
+for j in range(len(result_list)):
+    if result_list[j][0] == a:
+        last_result.append(result_list[j])
+last_result.sort()
+print(last_result[0][1], last_result[0][0])
+
+
+### 백준 사이트에선 런타임에러 발생(메모리 초과로 추정) -> 개선점 생각하기
