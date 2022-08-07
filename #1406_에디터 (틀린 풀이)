@@ -1,0 +1,33 @@
+import sys
+
+s = list(sys.stdin.readline().rstrip())
+s.insert(0, 0)
+
+M = int(sys.stdin.readline().rstrip())
+
+cur = len(s)-1
+n = len(s) - 1
+for _ in range(M):
+    com = sys.stdin.readline().rstrip()
+    if com == 'L':
+        if cur>0:
+            cur -= 1
+    elif com == 'D':
+        if cur < n - 1:
+            cur += 1
+    elif com == 'B':
+        if cur > 0:
+            s.pop(cur)
+            cur -= 1
+           
+            
+    elif com[0] == 'P':
+        c = com[2]
+        s.insert(cur+1, c)
+        cur += 1
+
+for i in range(1,len(s)) :
+    print(s[i], end='')
+
+# 알고리즘은 맞지만 시간 초과되는 이유는 python 또한 c 기반이기 때문에 리스트 사용시 c의 배열처럼 동작. 따라서 리스트에서 원소 삭제시 우리 눈에 
+# 보이지는 않지만 원소들을 하나씩 당기는 과정이 포함되어 있을 것이다. -> 시간초과 되는 이유이자 c를 배우지 않으면 알 수 없는 내용.
