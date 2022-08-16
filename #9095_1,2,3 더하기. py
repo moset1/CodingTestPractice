@@ -1,0 +1,11 @@
+arr = [0] * 12
+T = int(input())
+arr[1] = 1
+arr[2] = 2
+arr[3] = 4
+for i in range(T):
+    n = int(input())
+    for j in range(4,n+1):
+        if arr[j] == 0:
+            arr[j] = arr[j-3] + arr[j-2]+ arr[j-1]
+    print(arr[n])
