@@ -69,9 +69,10 @@ public class P1987 {
 
     static void dfs(int r, int c, int cnt) {
 
+        MAX = Math.max(MAX, cnt);
         char alphabet = map[r][c];
         alphabetVisited[alphabet - 'A'] = true;
-        mapVisited[r][c] = true;
+
 
 
         for (int i=0; i<4; i++) {
@@ -80,15 +81,15 @@ public class P1987 {
 
             if (nr < 0 || nc < 0 || nr >= R || nc >= C) continue;
 
-            if (mapVisited[nr][nc]) continue;
+
             if (alphabetVisited[map[nr][nc] - 'A']) continue;
 
             dfs(nr, nc, cnt+1);
         }
 
-        MAX = Math.max(MAX, cnt);
+
         alphabetVisited[alphabet - 'A'] = false;
-        mapVisited[r][c] = false;
+
 
 
     }
